@@ -3,43 +3,53 @@
 #define AUTOMATON_HPP
 
 #include <list>
+#include <Token.hpp>
 
 class Edge;
 
 class State {
     public:
-    State(Edge* edges, int numEdges) { this->edges = edges; this->numEdges = numEdges; }
-    Edge* getEdge(char id);
-    int getNumEdges();
+    State(std::string ID);
+    void addEdge(std::string ID);
+    std::list<Edge*>* getEdgesByChar(char ID);
+    Edge* getEdgeByID(std::string ID);
 
     private:
-    int numEdges;
-    Edge* edges;
+    std::string ID;
+    std::list<Edge*>* edges;
+    bool isGoal;
 };
 
 class Edge {
     public:
-    Edge(State* next, char edgeChar) { this->next = next; this->edgeChar = edgeChar; }
+    Edge(std::string ID);
     State* getNext();
+    std::string getID();
     char getChar();
 
     private:
+    std::string ID;
     State* next;
-    char edgeChar;
+    char transChar;
+    bool negate;
+    bool isAlpha;
+    bool isNum;
 };
-
 
 class Automaton {
     public:
-    Automaton(State* start) { this->start = start; }
+    Automaton(Token token);
     void update(char input);
-    bool isGoal();
+    void addState(std::string edgeID, std::string fromEdge, bool isGoal);
+    void addEdge(std::string ID, std::string fromState, std::string toState);
+    bool isOnGoal();
+    bool isDead();
 
     private:
+    Token token;
     State* start;
     std::list<State*>* currents;
-    State* goal;
-    int numCurrents;
+    std::list<State*>* prevs;
 };
 
 #endif
