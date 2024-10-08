@@ -12,24 +12,26 @@ class State {
     State(std::string ID);
     void addEdge(std::string ID);
     std::list<Edge*>* getEdgesByChar(char ID);
-    Edge* getEdgeByID(std::string ID);
+    Edge* findEdgeByID(std::string ID);
+    bool isGoal();
 
     private:
     std::string ID;
     std::list<Edge*>* edges;
-    bool isGoal;
+    bool goal;
 };
 
 class Edge {
     public:
     Edge(std::string ID);
     State* getNext();
+    void setNext(State* next);
     std::string getID();
     char getChar();
 
     private:
     std::string ID;
-    State* next;
+    State* nextState;
     char transChar;
     bool negate;
     bool isAlpha;

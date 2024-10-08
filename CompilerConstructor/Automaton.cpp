@@ -1,11 +1,12 @@
 
 #include <Automaton.hpp>
+#include <iostream>
 
 // State
 State::State(std::string ID) {
     this->ID = ID;
     edges = new std::list<Edge*>();
-    isGoal = false;
+    goal = false;
 }
 void State::addEdge(std::string ID) {
     edges->push_back(new Edge(ID));
@@ -18,18 +19,25 @@ std::list<Edge*>* State::getEdgesByChar(char transChar) {
         }
     }
 }
-Edge* State::getEdgeByID(std::string ID) {
+Edge* State::findEdgeByID(std::string ID) {
     for (auto edge : *edges) {
         if (edge->getID() == ID) {
             return edge;
         }
+        else {
+           return edge->getNext()->findEdgeByID(ID);
+        }
     }
+    return nullptr;
+}
+bool State::isGoal() {
+    return goal;
 }
 
 // Edge
 Edge::Edge(std::string ID) {
     this->ID = ID;
-    next = nullptr;
+    nextState = nullptr;
     transChar = '\0';
     negate = false;
     isAlpha = false;
@@ -42,7 +50,7 @@ char Edge::getChar() {
     return transChar;
 }
 State* Edge::getNext() {
-    return next;
+    return nextState;
 }
 
 // Automaton
@@ -80,12 +88,22 @@ void Automaton::update(char input) {
         currents->remove(*i);
     }
 }
-void addState(std::string ID, std::string fromEdge, bool isGoal) {
+void Automaton::addState(std::string ID, std::string fromEdge, bool isGoal) {
     // search thru automaton for fromEdge
-    
+    Edge* edge = start->findEdgeByID(fromEdge);
+    if (edge != nullptr) {
+        
+    } else {
+        std::cerr << "No edge  with edge ID " << fromEdge << "\n";
+    }
 }
 bool Automaton::isOnGoal() {
-
+    for (auto state : *currents) {
+        if (state->isGoal()) {
+            return true;
+        }
+    }
+    return false;
 }
 bool Automaton::isDead() {
     return currents->empty();
