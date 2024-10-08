@@ -3,29 +3,31 @@
 #include <iostream>
 
 // State
-State::State(std::string ID) {
+State::State(std::string ID, bool inGoal=false) {
     this->ID = ID;
     edges = new std::list<Edge*>();
-    goal = false;
+    goal = inGoal;
 }
-void State::addEdge(std::string ID) {
+Edge* State::addEdge(std::string ID) {
     edges->push_back(new Edge(ID));
+    return edges->back();
 }
-std::list<Edge*>* State::getEdgesByChar(char transChar) {
+std::list<Edge*>* State::getImmEdgesByChar(char transChar) {
     std::list<Edge*>* result = new std::list<Edge*>();
     for (std::list<Edge*>::iterator i = edges->begin(); i != edges->end(); i++) {
         if ((*i)->getChar() == transChar) {
             result->push_back(*i);
         }
     }
+    return result;
 }
-Edge* State::findEdgeByID(std::string ID) {
+State* State::findStateByID(std::string ID) {
     for (auto edge : *edges) {
-        if (edge->getID() == ID) {
-            return edge;
+        if (edge->getNext()->getID() == ID) {
+            return edge->getNext();
         }
         else {
-           return edge->getNext()->findEdgeByID(ID);
+            return edge->getNext()->findStateByID(ID);
         }
     }
     return nullptr;
@@ -43,6 +45,9 @@ Edge::Edge(std::string ID) {
     isAlpha = false;
     isNum = false;
 }
+void Edge::setNext(State* next) {
+    nextState = next;
+}
 std::string Edge::getID() {
     return ID;
 }
@@ -54,9 +59,9 @@ State* Edge::getNext() {
 }
 
 // Automaton
-Automaton::Automaton(Token token) {
+Automaton::Automaton(Token token, std::string startStateID="S") {
     token = token;
-    start = nullptr;
+    start = new State(startStateID);
     currents = new std::list<State*>();
     prevs = new std::list<State*>();
 }
@@ -69,7 +74,7 @@ void Automaton::update(char input) {
 
     // take epsilon edges first
     for (i = currents->begin(); i != currents->end(); i++) {
-        epsilonEdges = (*i)->getEdgesByChar('\0'); // follow epsilon edges as far as needed
+        epsilonEdges = (*i)->getImmEdgesByChar('\0'); // follow epsilon edges as far as needed
 
         for (j = epsilonEdges->begin(); j != epsilonEdges->end(); j++) {
             currents->push_back((*j)->getNext());
@@ -79,7 +84,7 @@ void Automaton::update(char input) {
     // take all char edges from current states and delete state
     std::list<State*>::iterator end = currents->end();
     for (i = currents->begin(); i != end; i++) {
-        charEdges = (*i)->getEdgesByChar(input);
+        charEdges = (*i)->getImmEdgesByChar(input);
         
         for (j = charEdges->begin(); j != charEdges->end(); j++) {
             currents->push_back((*j)->getNext());
@@ -88,13 +93,23 @@ void Automaton::update(char input) {
         currents->remove(*i);
     }
 }
-void Automaton::addState(std::string ID, std::string fromEdge, bool isGoal) {
-    // search thru automaton for fromEdge
-    Edge* edge = start->findEdgeByID(fromEdge);
-    if (edge != nullptr) {
+// add a new edge and attach it from fromStateID to toStateID.
+// if state with ID toStateID does not exist, create a new state with ID toStateID.
+void Automaton::addStateTransition(
+    std::string fromStateID, std::string toStateID, char transChar, bool inGoal=false) {
         
+    State* fromState = start->findStateByID(fromStateID);
+    if (fromState == nullptr) {
+        std::cerr << "ERROR: State with ID " << fromStateID << " does not exist.\n";
+        return;
+    }
+
+    State* toState = start->findStateByID(toStateID);
+
+    if (toState != nullptr) {
+        fromState->addEdge(fromStateID + transChar + toStateID)->setNext(toState);
     } else {
-        std::cerr << "No edge  with edge ID " << fromEdge << "\n";
+        fromState->addEdge(fromStateID + transChar + toStateID)->setNext(new State(toStateID, inGoal));
     }
 }
 bool Automaton::isOnGoal() {

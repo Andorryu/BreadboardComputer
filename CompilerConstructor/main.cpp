@@ -1,6 +1,6 @@
 
-#include <Tokenizer.hpp>
+#include <Driver.hpp>
 
 int main() {
-    
+    Driver("bbc.nfa", "bbc.gram").run();
 }
