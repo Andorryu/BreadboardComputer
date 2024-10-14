@@ -1,14 +1,15 @@
-USIGN ST u U U s S S i I I g G G n N+
-SIGN ST s S S i I I g G G n N+
-CHAR ST c C C h H H a A A r R+
-BOOL ST b B B o O1 O1 o O2 O2 l L+
-VOID ST v V V o O O i I I d D+
-IF ST i I I f F+
-ELSE ST e E1 E1 l L L s S S e E2+
-WHILE ST w W W h H H i I I l L L e E+
-DISPLAY ST d D D i I I s S S p P P l L L a A A y Y+
-CLASS ST c C C a A A s S1 S1 s S2+
-RETURN ST r R1 R1 e E E t T T u U U r R2 R2 n N+
+
+USIGN ST u A A s B B i C C g D D n E+
+SIGN ST s A A i B B g C C n D+
+CHAR ST c A A h B B a C C r D+
+BOOL ST b A A o B B o C C l D+
+VOID ST v A A o B B i C C d D+
+IF ST i A A f B+
+ELSE ST e A A l B B s C C e D+
+WHILE ST w A A h B B i C C l D D e E+
+DISPLAY ST d A A i B B s C C p D D l E E a F F y G+
+CLASS ST c A A a B B s C C s D+
+RETURN ST r A A e B B t C C u D D r E E n F+
 ID ST alpha A ST _ A A epsilon B+ B alpha A B num A B _ A
 LOGAND ST & A A & B+
 LOGOR ST | A A | B+
@@ -26,7 +27,7 @@ NOTEQUALS ST ! A A = B+
 GREATER ST > A+
 GREATEREQ ST > A A = B+
 LESS ST < A+
-LESSEQ ST < A = B+
+LESSEQ ST < A A = B+
 LPARENS ST ( A+
 RPARENS ST ) A+
 LCURLY ST { A+

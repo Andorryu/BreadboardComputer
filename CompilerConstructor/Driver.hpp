@@ -3,7 +3,8 @@
 
 #include <string>
 #include <fstream>
-#include <Tokenizer.hpp>
+#include <Lexer.hpp>
+#include <Syntaxer.hpp>
 
 class Driver {
     public:
@@ -11,8 +12,9 @@ class Driver {
     void run();
 
     private:
-    void buildTokenizer(std::string spec);
-    Tokenizer* tokenizer;
+    std::list<std::string> Tokenize(std::string spec);
+    Lexer* lexer;
+    Syntaxer* syntaxer;
 };
 
 #endif
