@@ -8,6 +8,7 @@ class Token {
     public:
     Token(std::string ID);
     void setValue(std::string value);
+    void printID();
     void print();
 
     private:

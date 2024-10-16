@@ -1,39 +1,40 @@
 
-#include <Driver.hpp>
+#include "Driver.hpp"
+#include <iostream>
+#include <fstream>
 
 Driver::Driver(std::string lexFile, std::string syntaxFile) {
+    std::cout << "Entered Driver\n";
+
     std::ifstream inLexFile(lexFile);
-    std::string lexSpec;
-    inLexFile >> lexSpec;
-    lexer = new Lexer(Tokenize(lexSpec));
-    inLexFile.close();
+    lexer = new Lexer(Tokenize(&inLexFile));
+
+    std::cout << "Successfully Built Lexer\n";
 
     std::ifstream inSyntaxFile(syntaxFile);
-    std::string grammarSpec;
-    inSyntaxFile >> grammarSpec;
-    syntaxer = new Syntaxer(Tokenize(grammarSpec));
-    inSyntaxFile.close();
+    syntaxer = new Syntaxer(Tokenize(&inSyntaxFile));
+
+    std::cout << "Successfully Built Syntaxer\n";
 }
-void Driver::run() {
-    lexer->lex("hello");
-    lexer->print();
+void Driver::run(char* BBCFile) {
+    std::ifstream inBBCFile(BBCFile);
+    std::string temp;
+    while (getline(inBBCFile, temp)) {
+        rawProgramText += temp;
+        rawProgramText += '\n';
+    }
+
+    lexer->lex(rawProgramText);
+    std::cout << "Successfully Lexed\n";
+    // lexer->printTokenstream();
 }
-std::list<std::string> Driver::Tokenize(std::string spec) {
+std::list<std::string> Driver::Tokenize(std::ifstream* specFile) {
     // break into tokens
     std::list<std::string> tokens;
-    std::string token = "";
-    for (int i = 0; i < spec.size(); i++) {
-        // get tokens
-        if (spec[i] == '\n') {
-            token = "\n";
-        }
-        if (!(spec[i] == ' ' || spec[i] == '\0')) {
-            token += spec[i];
-            continue;
-        }
+    std::string token;
+    while (specFile->good()) {
+        (*specFile) >> token;
         tokens.push_back(token);
-        token = "";
     }
     return tokens;
 }
-

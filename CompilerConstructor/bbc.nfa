@@ -1,45 +1,44 @@
-
-USIGN ST u A A s B B i C C g D D n E+
-SIGN ST s A A i B B g C C n D+
-CHAR ST c A A h B B a C C r D+
-BOOL ST b A A o B B o C C l D+
-VOID ST v A A o B B i C C d D+
-IF ST i A A f B+
-ELSE ST e A A l B B s C C e D+
-WHILE ST w A A h B B i C C l D D e E+
-DISPLAY ST d A A i B B s C C p D D l E E a F F y G+
-CLASS ST c A A a B B s C C s D+
-RETURN ST r A A e B B t C C u D D r E E n F+
-ID ST alpha A ST _ A A epsilon B+ B alpha A B num A B _ A
-LOGAND ST & A A & B+
-LOGOR ST | A A | B+
-LOGNOT ST ! A+
-BITAND ST & A+
-BITOR ST | A+
-BITNOT ST ~ A+
-CROSS ST + A+
-DASH ST - A+
-STAR ST * A+
-SLASH ST / A+
-ASSIGN ST = A+
-EQUALS ST = A A = B+
-NOTEQUALS ST ! A A = B+
-GREATER ST > A+
-GREATEREQ ST > A A = B+
-LESS ST < A+
-LESSEQ ST < A A = B+
-LPARENS ST ( A+
-RPARENS ST ) A+
-LCURLY ST { A+
-RCURLY ST } A+
-LBRACK ST [ A+
-RBRACK ST ] A+
-COMMA ST , A+
-SEMICOLON ST ; A+
-DOT ST . A+
-ARROW ST - A > B+
-DECINTLIT ST 0 A+ ST 1 B ST 2 B ST 3 B ST 4 B ST 5 B ST 6 B ST 7 B ST 8 B ST 9 B B epsilon C+ C num B
-BININTLIT ST 0 A A b B B 0 C+ B 1 C C epsilon B
-HEXINTLIT ST 0 A A x B B alpha C+ B num C C epsilon B
-CHARLIT ST ' A A / B A not \n C B t C B n C B 0 C B ' C C ' D+
-BOOLLIT ST t A A r B B u C C e D+ ST f E E a F F l G G s H H e D
+nl USIGN ST u A A s B B i C C g D D n E+
+nl SIGN ST s A A i B B g C C n D+
+nl CHAR ST c A A h B B a C C r D+
+nl BOOL ST b A A o B B o C C l D+
+nl VOID ST v A A o B B i C C d D+
+nl IF ST i A A f B+
+nl ELSE ST e A A l B B s C C e D+
+nl WHILE ST w A A h B B i C C l D D e E+
+nl DISPLAY ST d A A i B B s C C p D D l E E a F F y G+
+nl CLASS ST c A A a B B s C C s D+
+nl RETURN ST r A A e B B t C C u D D r E E n F+
+nl ID ST alpha A+ ST _ A A epsilon B B alpha A B num A B _ A
+nl LOGAND ST & A A & B+
+nl LOGOR ST | A A | B+
+nl LOGNOT ST ! A+
+nl BITAND ST & A+
+nl BITOR ST | A+
+nl BITNOT ST ~ A+
+nl CROSS ST + A+
+nl DASH ST - A+
+nl STAR ST * A+
+nl SLASH ST / A+
+nl ASSIGN ST = A+
+nl EQUALS ST = A A = B+
+nl NOTEQUALS ST ! A A = B+
+nl GREATER ST > A+
+nl GREATEREQ ST > A A = B+
+nl LESS ST < A+
+nl LESSEQ ST < A A = B+
+nl LPARENS ST ( A+
+nl RPARENS ST ) A+
+nl LCURLY ST { A+
+nl RCURLY ST } A+
+nl LBRACK ST [ A+
+nl RBRACK ST ] A+
+nl COMMA ST , A+
+nl SEMICOLON ST ; A+
+nl DOT ST . A+
+nl ARROW ST - A A > B+
+nl DECINTLIT ST 0 A+ ST 1 B+ ST 2 B ST 3 B ST 4 B ST 5 B ST 6 B ST 7 B ST 8 B ST 9 B B epsilon C C num B
+nl BININTLIT ST 0 A A b B B 0 C+ B 1 C C epsilon B
+nl HEXINTLIT ST 0 A A x B B a C+ B b C B c C B d C B e C B f C B A C B B C B C C B D C B E C B F C B num C C epsilon B
+nl CHARLIT ST ' A A \ B B t C B n C B 0 C B ' C B \ C A not \n C C ' D+
+nl BOOLLIT ST t A A r B B u C C e D+ ST f E E a F F l G G s H H e D

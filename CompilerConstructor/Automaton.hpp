@@ -3,18 +3,19 @@
 #define AUTOMATON_HPP
 
 #include <list>
-#include <Token.hpp>
+#include "Token.hpp"
 
 class Edge;
 
 class State {
     public:
-    State(std::string ID, bool inGoal=false);
-    Edge* addEdge(std::string ID, bool negate);
+    State(std::string ID, bool inGoal);
+    Edge* addEdge(std::string ID, char transChar, bool negate);
     std::list<Edge*>* getImmEdgesByChar(char ID);
-    State* findStateByID(std::string ID);
+    State* findStateByID(std::string ID, std::list<std::string>* visitedIDs);
     std::string getID();
     bool isGoal();
+    void print();
 
     private:
     std::string ID;
@@ -24,7 +25,7 @@ class State {
 
 class Edge {
     public:
-    Edge(std::string ID, bool negate);
+    Edge(std::string ID, char transChar, bool negate);
     void setNext(State* next);
     State* getNext();
     std::string getID();
@@ -43,11 +44,12 @@ class Automaton {
     void reset();
     void update(char input);
     void addStateTransition(
-        std::string fromStateID, std::string toStateID, char transChar, bool negate=false, bool isGoal=false);
+        std::string fromStateID, std::string toStateID, char transChar, bool negate, bool isGoal);
     void revert();
     bool isOnGoal();
     bool isDead();
     Token* getToken();
+    void printCurrent();
 
     private:
     Token* token;
