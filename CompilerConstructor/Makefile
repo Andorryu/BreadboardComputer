@@ -1,14 +1,17 @@
 
-all: test1 test2
+all: test1 test2 run
 
 debug: bbc
 	gdb ./bbc
 
+run: bbc
+	./bbc main.bbc bbc.nfa bbc.gram
+
 test1: bbc
-	./bbc test1.bbc
+	./bbc tests/test1.bbc tests/test1.nfa tests/test1.gram 
 
 test2: bbc
-	./bbc test2.bbc
+	./bbc tests/test2.bbc tests/test2.nfa tests/test2.gram
 
 bbc: *.o
 	g++ *.o -g -o bbc

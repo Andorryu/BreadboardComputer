@@ -26,7 +26,7 @@ void Driver::run(char* BBCFile) {
 
     lexer->lex(rawProgramText);
     std::cout << "Successfully Lexed\n";
-    // lexer->printTokenstream();
+    lexer->printTokenstream();
 }
 std::list<std::string> Driver::Tokenize(std::ifstream* specFile) {
     // break into tokens
