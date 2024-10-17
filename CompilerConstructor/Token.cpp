@@ -5,12 +5,12 @@
 Token::Token(std::string ID) {
     this->ID = ID;
 }
-void Token::setValue(std::string value) {
+void Token::SetValue(std::string value) {
     this->value = value;
 }
-void Token::printID() {
+void Token::PrintID() {
     std::cout << ID;
 }
-void Token::print() {
+void Token::Print() {
     std::cout << ID << ": " << value;
 }

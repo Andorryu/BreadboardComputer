@@ -10,7 +10,7 @@
 class Driver {
     public:
     Driver(std::string lexFile, std::string grammarFile);
-    void run(char* bbcFile);
+    void Run(char* bbcFile);
 
     private:
     std::list<std::string> Tokenize(std::ifstream* specFile);

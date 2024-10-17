@@ -26,10 +26,10 @@ class State {
 class Edge {
     public:
     Edge(std::string ID, char transChar, bool negate);
-    void setNext(State* next);
-    State* getNext();
-    std::string getID();
-    char getChar();
+    void SetNext(State* next);
+    State* GetNext();
+    std::string GetID();
+    char GetChar();
     bool negate;
 
     private:
@@ -41,15 +41,15 @@ class Edge {
 class Automaton {
     public:
     Automaton(Token* token, std::string startID);
-    void reset();
-    void update(char input);
-    void addStateTransition(
+    void Reset();
+    void Update(char input);
+    void AddStateTransition(
         std::string fromStateID, std::string toStateID, char transChar, bool negate, bool isGoal);
-    void revert();
-    bool isOnGoal();
-    bool isDead();
-    Token* getToken();
-    void printCurrent();
+    void Revert();
+    bool IsOnGoal();
+    bool IsDead();
+    Token* GetToken();
+    void PrintCurrent();
 
     private:
     Token* token;

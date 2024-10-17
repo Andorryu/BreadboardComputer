@@ -1,0 +1,93 @@
+Prog            GlobalList
+
+GlobalList      GlobalList Global
+GlobalList      Global
+GlobalList      epsilon
+
+Global          VarStmt
+Global          VarAssignStmt
+Global          FuncStmt
+Global          FuncDefn
+Global          ClassDefn
+
+VarStmt         VarDecl SEMICOLON
+
+VarDecl         Type ID
+
+Type            DataType
+Type            DataType STAR
+
+DataType        PrimType
+DataType        ClassType
+
+PrimType        USGN
+PrimType        SIGN
+PrimType        CHAR
+PrimType        BOOL
+PrimType        VOID
+
+ClassType       ID
+
+FuncStmt        FuncDecl SEMICOLON
+
+FuncDecl        Type ID LPARENS FormalList RPARENS
+
+FormalList      FormalList COMMA VarDecl
+FormalList      VarDecl
+FormalList      epsilon
+
+FuncDefn        FuncDecl BlockStmt
+
+BlockStmt       LCURLY StmtList RCURLY
+
+StmtList        StmtList Stmt
+StmtList        Stmt
+StmtList        epsilon
+
+Stmt            VarStmt
+Stmt            VarAssignStmt
+Stmt            AssignStmt
+Stmt            IfStmt
+Stmt            WhileStmt
+Stmt            ForStmt
+Stmt            SwitchStmt
+
+VarAssignStmt   VarAssignDecl SEMICOLON
+
+VarAssignDecl   VarDecl ASSIGN Expr
+
+AssignStmt      AssignDecl SEMICOLON
+
+AssignDecl      Loc ASSIGN Expr
+
+IfStmt          IF LPARENS Condition RPARENS BlockStmt
+
+WhileStmt       WHILE LPARENS Condition RPARENS BlockStmt
+
+ForStmt         For LPARENS ForInit SEMICOLON Condition SEMICOLON ForIter RPARENS BlockStmt
+
+ForInit         VarAssignDecl
+ForInit         AssignDecl
+
+ForIter         AssignDecl
+
+SwitchStmt      SWITCH LPARENS Expr RPARENS SwitchBody
+
+SwitchBody      LCURLY CaseList RCURLY
+
+CaseList        CaseList CaseStmt
+CaseList        CaseStmt
+CaseList        epsilon
+
+CaseStmt        CASE Expr BlockStmt
+
+ClassDefn       CLASS ID ClassBody
+
+ClassBody       LCURLY ClassList RCURLY
+
+ClassList       ClassList ClassDecl
+ClassList       ClassDecl
+ClassList       epsilon
+
+ClassDecl       VarStmt
+ClassDecl       FuncDefn

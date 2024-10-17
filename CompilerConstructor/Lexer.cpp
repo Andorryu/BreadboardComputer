@@ -38,14 +38,14 @@ Lexer::Lexer(std::list<std::string> tokens) {
             // get transChar/add transition
             if (*nfatok == "alpha") { // upper or lower case characters
                 for (char c = 'a'; c <= 'z'; c++) { // lowercase
-                    automata.back()->addStateTransition(fromState, toState, c, negate, isGoal);
+                    automata.back()->AddStateTransition(fromState, toState, c, negate, isGoal);
                 }
                 for (char c = 'A'; c <= 'Z'; c++) { // uppercase
-                    automata.back()->addStateTransition(fromState, toState, c, negate, isGoal);
+                    automata.back()->AddStateTransition(fromState, toState, c, negate, isGoal);
                 }
             } else if (*nfatok == "num") { // 0-9
                 for (char c = '0'; c <= '9'; c++) { // numerical
-                    automata.back()->addStateTransition(fromState, toState, c, negate, isGoal);
+                    automata.back()->AddStateTransition(fromState, toState, c, negate, isGoal);
                 }
             } else {
                 char transChar;
@@ -56,13 +56,13 @@ Lexer::Lexer(std::list<std::string> tokens) {
                 } else {
                     transChar = (*nfatok)[0];
                 }
-                automata.back()->addStateTransition(fromState, toState, transChar, negate, isGoal);
+                automata.back()->AddStateTransition(fromState, toState, transChar, negate, isGoal);
             }
             nfatok++;
         }
     }
 }
-void Lexer::lex(std::string raw) {
+void Lexer::Lex(std::string raw) {
     // std::cout << "Running Lexer on input:\n" << raw << "\n";
     std::string tokenValue = "";
     Token* token;
@@ -78,28 +78,28 @@ void Lexer::lex(std::string raw) {
 
         // update all automata
         for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-            (*atmtn)->update(raw[i]);
+            (*atmtn)->Update(raw[i]);
         }
 
         // revert if dead and find the first automaton that is in a goal state
-        if (allDead()) {
+        if (AllDead()) {
             // if whitespace alone causes automata to die, ignore it
             if (tokenValue == "" && (raw[i] == ' ' || raw[i] == '\n')) {
-                resetAutomata();
+                ResetAutomata();
                 continue;
             }
-            revertAutomata();
+            RevertAutomata();
             // printCurrentAutomataStates();
-            Automaton* first = findFirstInGoal();
+            Automaton* first = FindFirstInGoal();
             if (first == nullptr) {
                 std::cerr << "LEXICAL ERROR: char " << raw[i] << " on line " << line << "\n";
                 return;
             }
-            token = first->getToken();
-            token->setValue(tokenValue);
+            token = first->GetToken();
+            token->SetValue(tokenValue);
             tokenStream.push_back(*token);
             tokenValue = "";
-            resetAutomata();
+            ResetAutomata();
             // std::cout << "found token! "; token->printID(); std::cout << "\n";
             i--;
         }
@@ -108,55 +108,55 @@ void Lexer::lex(std::string raw) {
         }
     }
 }
-std::list<Token> Lexer::getTokenStream() {
+std::list<Token> Lexer::GetTokenStream() {
     return tokenStream;
 }
-void Lexer::printNFATokens(std::list<std::string> tokens) {
+void Lexer::PrintNFATokens(std::list<std::string> tokens) {
     for (auto tok = tokens.begin(); tok != tokens.end(); tok++) {
         std::cout << *tok << " ";
     }
     std::cout << "\n";
 }
-void Lexer::printTokenstream() {
+void Lexer::PrintTokenstream() {
     for (auto tok = tokenStream.begin(); tok != tokenStream.end(); tok++) {
-        (*tok).print();
+        (*tok).Print();
         std::cout << "\n";
     }
 }
 // private
-bool Lexer::allDead() {
+bool Lexer::AllDead() {
     for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-        if (!(*atmtn)->isDead()) {
+        if (!(*atmtn)->IsDead()) {
             return false;
         }
     }
     return true;
 }
-void Lexer::revertAutomata() {
+void Lexer::RevertAutomata() {
     for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-        (*atmtn)->revert();
+        (*atmtn)->Revert();
     }
 }
-void Lexer::resetAutomata() {
+void Lexer::ResetAutomata() {
     for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-        (*atmtn)->reset();
+        (*atmtn)->Reset();
     }
 }
-Automaton* Lexer::findFirstInGoal() {
+Automaton* Lexer::FindFirstInGoal() {
     for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-        if ((*atmtn)->isOnGoal()) {
+        if ((*atmtn)->IsOnGoal()) {
             return *atmtn;
         }
     }
     return nullptr;
 }
-void Lexer::printCurrentAutomataStates() {
+void Lexer::PrintCurrentAutomataStates() {
     for (auto atmtn = automata.begin(); atmtn != automata.end(); atmtn++) {
-        if (!(*atmtn)->isDead()) {
+        if (!(*atmtn)->IsDead()) {
             std::cout << "    (";
-            (*atmtn)->getToken()->printID();
+            (*atmtn)->GetToken()->PrintID();
             std::cout << "): ";
-            (*atmtn)->printCurrent();
+            (*atmtn)->PrintCurrent();
             std::cout << "\n";
         }
     }

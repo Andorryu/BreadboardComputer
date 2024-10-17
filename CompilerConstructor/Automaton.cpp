@@ -16,9 +16,9 @@ std::list<Edge*>* State::getImmEdgesByChar(char transChar) {
     std::list<Edge*>* result = new std::list<Edge*>();
 
     for (std::list<Edge*>::iterator i = edges->begin(); i != edges->end(); i++) {
-        if ((*i)->getChar() == transChar && !(*i)->negate) {
+        if ((*i)->GetChar() == transChar && !(*i)->negate) {
             result->push_back(*i);
-        } else if ((*i)->getChar() != transChar && (*i)->negate) {
+        } else if ((*i)->GetChar() != transChar && (*i)->negate) {
             result->push_back(*i);
         }
     }
@@ -40,7 +40,7 @@ State* State::findStateByID(std::string ID, std::list<std::string>* visitedIDs) 
     }
     // recurse for each edge's state
     for (auto edge : *edges) {
-        State* nextState = edge->getNext()->findStateByID(ID, visitedIDs);
+        State* nextState = edge->GetNext()->findStateByID(ID, visitedIDs);
         if (nextState != nullptr) {
             return nextState;
         }
@@ -64,16 +64,16 @@ Edge::Edge(std::string ID, char transChar, bool negate) {
     this->transChar = transChar;
     this->negate = negate;
 }
-void Edge::setNext(State* next) {
+void Edge::SetNext(State* next) {
     nextState = next;
 }
-State* Edge::getNext() {
+State* Edge::GetNext() {
     return nextState;
 }
-std::string Edge::getID() {
+std::string Edge::GetID() {
     return ID;
 }
-char Edge::getChar() {
+char Edge::GetChar() {
     return transChar;
 }
 
@@ -85,12 +85,12 @@ Automaton::Automaton(Token* token, std::string startID) {
     currents->push_back(start);
     prevs = new std::list<State*>();
 }
-void Automaton::reset() {
+void Automaton::Reset() {
     currents = new std::list<State*>();
     currents->push_back(start);
     prevs = new std::list<State*>();
 }
-void Automaton::update(char input) {
+void Automaton::Update(char input) {
     prevs = new std::list<State*>();
     std::list<Edge*>* charEdges;
     std::list<Edge*>* epsilonEdges;
@@ -100,7 +100,7 @@ void Automaton::update(char input) {
         epsilonEdges = (*i)->getImmEdgesByChar('\0'); // follow epsilon edges as far as needed
 
         for (auto j = epsilonEdges->begin(); j != epsilonEdges->end(); j++) {
-            currents->push_back((*j)->getNext());
+            currents->push_back((*j)->GetNext());
         }
     }
 
@@ -110,7 +110,7 @@ void Automaton::update(char input) {
         charEdges = currents->front()->getImmEdgesByChar(input);
 
         for (auto j = charEdges->begin(); j != charEdges->end(); j++) {
-            temp->push_back((*j)->getNext());
+            temp->push_back((*j)->GetNext());
         }
         prevs->push_back(currents->front());
         currents->pop_front();
@@ -120,28 +120,28 @@ void Automaton::update(char input) {
 }
 // add a new edge and attach it from fromStateID to toStateID.
 // if state with ID toStateID does not exist, create a new state with ID toStateID.
-void Automaton::addStateTransition(
+void Automaton::AddStateTransition(
     std::string fromStateID, std::string toStateID, char transChar, bool negate=false, bool isGoal=false) {
 
     State* fromState = start->findStateByID(fromStateID, new std::list<std::string>());
     if (fromState == nullptr) {
-        std::cerr << "ERROR " << "("; token->print(); std::cerr << ")" << ": State with ID " << fromStateID << " does not exist.\n";
+        std::cerr << "ERROR " << "("; token->Print(); std::cerr << ")" << ": State with ID " << fromStateID << " does not exist.\n";
         return;
     }
 
     State* toState = start->findStateByID(toStateID, new std::list<std::string>());
 
     if (toState != nullptr) {
-        fromState->addEdge(fromStateID + transChar + toStateID, transChar, negate)->setNext(toState);
+        fromState->addEdge(fromStateID + transChar + toStateID, transChar, negate)->SetNext(toState);
     } else {
-        fromState->addEdge(fromStateID + transChar + toStateID, transChar, negate)->setNext(new State(toStateID, isGoal));
+        fromState->addEdge(fromStateID + transChar + toStateID, transChar, negate)->SetNext(new State(toStateID, isGoal));
     }
 }
-void Automaton::revert() {
+void Automaton::Revert() {
     currents = prevs;
     prevs = new std::list<State*>();
 }
-bool Automaton::isOnGoal() {
+bool Automaton::IsOnGoal() {
     for (auto state : *currents) {
         if (state->isGoal()) {
             return true;
@@ -149,13 +149,13 @@ bool Automaton::isOnGoal() {
     }
     return false;
 }
-bool Automaton::isDead() {
+bool Automaton::IsDead() {
     return currents->empty();
 }
-Token* Automaton::getToken() {
+Token* Automaton::GetToken() {
     return token;
 }
-void Automaton::printCurrent() {
+void Automaton::PrintCurrent() {
     for (auto state = currents->begin(); state != currents->end(); state++) {
         (*state)->print();
         std::cout << "  ";

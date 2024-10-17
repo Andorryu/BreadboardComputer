@@ -8,17 +8,17 @@
 class Lexer {
     public:
     Lexer(std::list<std::string> tokens);
-    void lex(std::string raw);
-    std::list<Token> getTokenStream();
-    void printNFATokens(std::list<std::string> tokens);
-    void printTokenstream();
+    void Lex(std::string raw);
+    std::list<Token> GetTokenStream();
+    void PrintNFATokens(std::list<std::string> tokens);
+    void PrintTokenstream();
 
     private:
-    bool allDead();
-    void revertAutomata();
-    void resetAutomata();
-    Automaton* findFirstInGoal();
-    void printCurrentAutomataStates();
+    bool AllDead();
+    void RevertAutomata();
+    void ResetAutomata();
+    Automaton* FindFirstInGoal();
+    void PrintCurrentAutomataStates();
     std::list<Automaton*> automata;
     std::list<Token> tokenStream;
     int line;

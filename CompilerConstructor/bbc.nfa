@@ -6,6 +6,9 @@ nl VOID ST v A A o B B i C C d D+
 nl IF ST i A A f B+
 nl ELSE ST e A A l B B s C C e D+
 nl WHILE ST w A A h B B i C C l D D e E+
+nl FOR ST f A A o B B r C+
+nl SWITCH ST s A A w B B i C C t D D c E E h F+
+nl CASE ST c A A a B B s C C e D+
 nl DISPLAY ST d A A i B B s C C p D D l E E a F F y G+
 nl CLASS ST c A A a B B s C C s D+
 nl RETURN ST r A A e B B t C C u D D r E E n F+
@@ -17,7 +20,9 @@ nl BITAND ST & A+
 nl BITOR ST | A+
 nl BITNOT ST ~ A+
 nl CROSS ST + A+
+nl INC ST + A A + B+
 nl DASH ST - A+
+nl DEC ST - A A - B+
 nl STAR ST * A+
 nl SLASH ST / A+
 nl ASSIGN ST = A+

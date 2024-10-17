@@ -7,5 +7,5 @@ int main(int argc, char* argv[]) {
         std::cout << "format: bbc <input .bbc> <input .nfa> <input .gram>";
         return 0;
     }
-    Driver(argv[2], argv[3]).run(argv[1]);
+    Driver(argv[2], argv[3]).Run(argv[1]);
 }

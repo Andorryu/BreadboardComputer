@@ -1,6 +1,23 @@
 
 #include "Syntaxer.hpp"
 
-Syntaxer::Syntaxer(std::list<std::string> tokens) {
+// Node
+// public
+ProdNode::ProdNode(std::string ID) {
+    this->ID = ID;
+}
 
+// Production
+// public
+Production::Production() {
+
+}
+
+// Production
+// public
+Syntaxer::Syntaxer(std::list<std::string> tokens) {
+    
+}
+void Syntaxer::ParseSDD() {
+    
 }
