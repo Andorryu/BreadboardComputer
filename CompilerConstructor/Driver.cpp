@@ -35,7 +35,6 @@ void Driver::Run(char* BBCFile) {
 
     // type checking
 
-
 }
 std::list<std::string> Driver::Tokenize(std::ifstream* specFile) {
     // break into tokens

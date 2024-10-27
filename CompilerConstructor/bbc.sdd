@@ -12,10 +12,53 @@ Global          ClassDefn
 
 VarStmt         VarDecl SEMICOLON
 
+VarAssignStmt   VarAssignDecl SEMICOLON
+
+FuncStmt        FuncDecl SEMICOLON
+
+FuncDefn        FuncDecl BlockStmt
+
+ClassDefn       CLASS ID ClassBody
+
 VarDecl         Type ID
+
+VarAssignDecl   VarDecl ASSIGN Expr
+
+FuncDecl        Type ID LPARENS FormalList RPARENS
+
+BlockStmt       LCURLY StmtList RCURLY
+
+ClassBody       LCURLY ClassList RCURLY
 
 Type            DataType
 Type            DataType STAR
+
+Expr            Condition
+Expr            MathExpr
+
+Condition       LogExpr
+Condition       Comparison
+
+LogExpr         Condition LOGAND Condition
+LogExpr         Condition LOGOR Condition
+LogExpr         LOGNOT Condition
+LogExpr         BoolExpr
+
+BoolExpr        TRUE
+BoolExpr        FALSE
+
+Comparison      MathExpr GREATER MathExpr
+Comparison      MathExpr GREATEREQ MathExpr
+Comparison      MathExpr LESS MathExpr
+Comparison      MathExpr LESSEQ MathExpr
+Comparison      MathExpr EQUALS MathExpr
+Comparison      MathExpr NOTEQUALS MathExpr
+
+MathExpr        MathExpr CROSS MathExpr
+MathExpr        MathExpr DASH MathExpr
+MathExpr        MathExpr STAR MathExpr
+MathExpr        MathExpr SLASH MathExpr
+MathExpr        IntExpr
 
 DataType        PrimType
 DataType        ClassType
@@ -28,17 +71,9 @@ PrimType        VOID
 
 ClassType       ID
 
-FuncStmt        FuncDecl SEMICOLON
-
-FuncDecl        Type ID LPARENS FormalList RPARENS
-
 FormalList      FormalList COMMA VarDecl
 FormalList      VarDecl
 FormalList      epsilon
-
-FuncDefn        FuncDecl BlockStmt
-
-BlockStmt       LCURLY StmtList RCURLY
 
 StmtList        StmtList Stmt
 StmtList        Stmt
@@ -51,10 +86,6 @@ Stmt            IfStmt
 Stmt            WhileStmt
 Stmt            ForStmt
 Stmt            SwitchStmt
-
-VarAssignStmt   VarAssignDecl SEMICOLON
-
-VarAssignDecl   VarDecl ASSIGN Expr
 
 AssignStmt      AssignDecl SEMICOLON
 
@@ -81,13 +112,10 @@ CaseList        epsilon
 
 CaseStmt        CASE Expr BlockStmt
 
-ClassDefn       CLASS ID ClassBody
-
-ClassBody       LCURLY ClassList RCURLY
-
 ClassList       ClassList ClassDecl
 ClassList       ClassDecl
 ClassList       epsilon
 
 ClassDecl       VarStmt
 ClassDecl       FuncDefn
+

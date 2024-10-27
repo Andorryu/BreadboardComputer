@@ -5,7 +5,7 @@ debug: bbc
 	gdb ./bbc
 
 run: bbc
-	./bbc main.bbc bbc.nfa bbc.gram
+	./bbc main.bbc bbc.nfa bbc.sdd
 
 test1: bbc
 	./bbc tests/test1.bbc tests/test1.nfa tests/test1.gram 
