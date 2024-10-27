@@ -8,26 +8,21 @@ Global          VarStmt
 Global          VarAssignStmt
 Global          FuncStmt
 Global          FuncDefn
+Global          ClassStmt
 Global          ClassDefn
 
 VarStmt         VarDecl SEMICOLON
-
 VarAssignStmt   VarAssignDecl SEMICOLON
-
 FuncStmt        FuncDecl SEMICOLON
-
 FuncDefn        FuncDecl BlockStmt
-
+ClassStmt       ClassDecl SEMICOLON
 ClassDefn       CLASS ID ClassBody
 
 VarDecl         Type ID
-
 VarAssignDecl   VarDecl ASSIGN Expr
-
 FuncDecl        Type ID LPARENS FormalList RPARENS
-
 BlockStmt       LCURLY StmtList RCURLY
-
+ClassDecl       CLASS ID
 ClassBody       LCURLY ClassList RCURLY
 
 Type            DataType
@@ -35,41 +30,6 @@ Type            DataType STAR
 
 Expr            Condition
 Expr            MathExpr
-
-Condition       LogExpr
-Condition       Comparison
-
-LogExpr         Condition LOGAND Condition
-LogExpr         Condition LOGOR Condition
-LogExpr         LOGNOT Condition
-LogExpr         BoolExpr
-
-BoolExpr        TRUE
-BoolExpr        FALSE
-
-Comparison      MathExpr GREATER MathExpr
-Comparison      MathExpr GREATEREQ MathExpr
-Comparison      MathExpr LESS MathExpr
-Comparison      MathExpr LESSEQ MathExpr
-Comparison      MathExpr EQUALS MathExpr
-Comparison      MathExpr NOTEQUALS MathExpr
-
-MathExpr        MathExpr CROSS MathExpr
-MathExpr        MathExpr DASH MathExpr
-MathExpr        MathExpr STAR MathExpr
-MathExpr        MathExpr SLASH MathExpr
-MathExpr        IntExpr
-
-DataType        PrimType
-DataType        ClassType
-
-PrimType        USGN
-PrimType        SIGN
-PrimType        CHAR
-PrimType        BOOL
-PrimType        VOID
-
-ClassType       ID
 
 FormalList      FormalList COMMA VarDecl
 FormalList      VarDecl
@@ -79,6 +39,22 @@ StmtList        StmtList Stmt
 StmtList        Stmt
 StmtList        epsilon
 
+ClassList       ClassList ClassDecl
+ClassList       ClassDecl
+ClassList       epsilon
+
+DataType        PrimType
+DataType        ClassType
+
+Condition       LogExpr
+Condition       Comparison
+
+MathExpr        MathExpr CROSS MathExpr
+MathExpr        MathExpr DASH MathExpr
+MathExpr        MathExpr STAR MathExpr
+MathExpr        MathExpr SLASH MathExpr
+MathExpr        IntExpr
+
 Stmt            VarStmt
 Stmt            VarAssignStmt
 Stmt            AssignStmt
@@ -87,34 +63,59 @@ Stmt            WhileStmt
 Stmt            ForStmt
 Stmt            SwitchStmt
 
-AssignStmt      AssignDecl SEMICOLON
+PrimType        USGN
+PrimType        SIGN
+PrimType        CHAR
+PrimType        BOOL
+PrimType        VOID
 
-AssignDecl      Loc ASSIGN Expr
+ClassType       ID
+
+LogExpr         Condition LOGAND Condition
+LogExpr         Condition LOGOR Condition
+LogExpr         LOGNOT Condition
+LogExpr         BoolExpr
+
+Comparison      MathExpr GREATER MathExpr
+Comparison      MathExpr GREATEREQ MathExpr
+Comparison      MathExpr LESS MathExpr
+Comparison      MathExpr LESSEQ MathExpr
+Comparison      MathExpr EQUALS MathExpr
+Comparison      MathExpr NOTEQUALS MathExpr
+
+IntExpr         DECINTLIT
+IntExpr         HEXINTLIT
+IntExpr         BININTLIT
+
+AssignStmt      AssignDecl SEMICOLON
 
 IfStmt          IF LPARENS Condition RPARENS BlockStmt
 
 WhileStmt       WHILE LPARENS Condition RPARENS BlockStmt
 
-ForStmt         For LPARENS ForInit SEMICOLON Condition SEMICOLON ForIter RPARENS BlockStmt
+ForStmt         FOR LPARENS ForInit SEMICOLON Condition SEMICOLON ForIter RPARENS BlockStmt
+
+SwitchStmt      SWITCH LPARENS Expr RPARENS SwitchBody
+
+BoolExpr        TRUE
+BoolExpr        FALSE
+
+AssignDecl      Loc ASSIGN Expr
 
 ForInit         VarAssignDecl
 ForInit         AssignDecl
 
 ForIter         AssignDecl
 
-SwitchStmt      SWITCH LPARENS Expr RPARENS SwitchBody
-
 SwitchBody      LCURLY CaseList RCURLY
+
+Loc             STAR 
 
 CaseList        CaseList CaseStmt
 CaseList        CaseStmt
 CaseList        epsilon
 
 CaseStmt        CASE Expr BlockStmt
-
-ClassList       ClassList ClassDecl
-ClassList       ClassDecl
-ClassList       epsilon
 
 ClassDecl       VarStmt
 ClassDecl       FuncDefn
