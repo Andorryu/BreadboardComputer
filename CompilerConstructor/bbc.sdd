@@ -28,8 +28,11 @@ ClassBody       LCURLY ClassList RCURLY
 Type            DataType
 Type            DataType STAR
 
-Expr            Condition
-Expr            MathExpr
+Expr            Expr BinOpr Expr
+Expr            UnOpr Expr
+Expr            LPARENS Expr RPARENS
+Expr            Loc
+Expr            Lit
 
 FormalList      FormalList COMMA VarDecl
 FormalList      VarDecl
@@ -46,14 +49,21 @@ ClassList       epsilon
 DataType        PrimType
 DataType        ClassType
 
-Condition       LogExpr
-Condition       Comparison
+BinOpr          CROSS
+BinOpr          DASH
+BinOpr          STAR
+BinOpr          SLASH
+BinOpr          LOGAND
+BinOpr          LOGOR
+BinOpr          LESS
+BinOpr          LESSEQ
+BinOpr          GREATER
+BinOpr          GREATEREQ
 
-MathExpr        MathExpr CROSS MathExpr
-MathExpr        MathExpr DASH MathExpr
-MathExpr        MathExpr STAR MathExpr
-MathExpr        MathExpr SLASH MathExpr
-MathExpr        IntExpr
+UnOpr           LOGNOT
+UnOpr           DASH
+UnOpr           LOGNOT
+UnOpr           BITNOT
 
 Stmt            VarStmt
 Stmt            VarAssignStmt
@@ -70,18 +80,6 @@ PrimType        BOOL
 PrimType        VOID
 
 ClassType       ID
-
-LogExpr         Condition LOGAND Condition
-LogExpr         Condition LOGOR Condition
-LogExpr         LOGNOT Condition
-LogExpr         BoolExpr
-
-Comparison      MathExpr GREATER MathExpr
-Comparison      MathExpr GREATEREQ MathExpr
-Comparison      MathExpr LESS MathExpr
-Comparison      MathExpr LESSEQ MathExpr
-Comparison      MathExpr EQUALS MathExpr
-Comparison      MathExpr NOTEQUALS MathExpr
 
 IntExpr         DECINTLIT
 IntExpr         HEXINTLIT
@@ -109,7 +107,8 @@ ForIter         AssignDecl
 
 SwitchBody      LCURLY CaseList RCURLY
 
-Loc             STAR 
+Loc             STAR Loc
+Loc             ID
 
 CaseList        CaseList CaseStmt
 CaseList        CaseStmt
