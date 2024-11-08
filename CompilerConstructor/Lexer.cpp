@@ -92,8 +92,8 @@ void Lexer::Lex(std::string raw) {
             // printCurrentAutomataStates();
             Automaton* first = FindFirstInGoal();
             if (first == nullptr) {
-                std::cerr << "LEXICAL ERROR: char " << raw[i] << " on line " << line << "\n";
-                return;
+                std::cerr << "LEXICAL PARSING ERROR: char " << raw[i] << " on line " << line << "\n";
+                exit(1);
             }
             token = first->GetToken();
             token->SetValue(tokenValue);

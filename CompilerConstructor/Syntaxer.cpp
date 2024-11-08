@@ -1,23 +1,15 @@
 
 #include "Syntaxer.hpp"
+#include "Production.hpp"
 
-// Node
+// Syntaxer
 // public
-ProdNode::ProdNode(std::string ID) {
-    this->ID = ID;
-}
-
-// Production
-// public
-Production::Production() {
-
-}
-
-// Production
-// public
-Syntaxer::Syntaxer(std::list<std::string> tokens) {
+Syntaxer::Syntaxer(std::list<std::string> sddTokens, const std::list<Automaton*>* automata) {
+    // create list of known ProdNodes and fill with tokens
+    std::list<ProdNode> knownProdNodes = std::list<ProdNode>();
     
 }
+
 void Syntaxer::ParseSDD() {
     
 }

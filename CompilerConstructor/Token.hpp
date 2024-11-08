@@ -10,6 +10,7 @@ class Token {
     void SetValue(std::string value);
     void PrintID();
     void Print();
+    std::string GetID();
 
     private:
     std::string ID;

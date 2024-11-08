@@ -14,3 +14,8 @@ void Token::PrintID() {
 void Token::Print() {
     std::cout << ID << ": " << value;
 }
+
+std::string Token::GetID()
+{
+    return this->ID;
+}

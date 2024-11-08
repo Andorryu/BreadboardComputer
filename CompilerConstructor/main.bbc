@@ -1,15 +1,15 @@
 
-usgn fibbonacci(usgn n) {
+usgn32 fibbonacci(usgn32 n) {
     if (n == 0) { return 0; }
     if (n == 1) { return 1; }
     return fibbonacci(n-1) + fibbonacci(n-2);
 }
 
 void main() {
-    usgn i = 0;
+    usgn32 i = 0;
     while (i < 10) {
-        display fibbonacci(i);
+        print(fibbonacci(i));
         i = i + 1;
     }
-    display fibbonacci(1);
+    print(fibbonacci(1));
 }

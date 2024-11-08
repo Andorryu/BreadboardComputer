@@ -4,24 +4,7 @@
 
 #include <list>
 #include <string>
-
-class ProdNode {
-    public:
-    ProdNode(std::string ID);
-
-    private:
-    std::string ID;
-    std::string type;
-};
-
-class Production {
-    public:
-    Production();
-
-    private:
-    ProdNode* prodNode;
-    std::list<ProdNode*>* defnNodes;
-};
+#include "Automaton.hpp"
 
 class ASTNode {
     public:
@@ -30,7 +13,7 @@ class ASTNode {
 
 class Syntaxer {
     public:
-    Syntaxer(std::list<std::string> tokens);
+    Syntaxer(std::list<std::string> sddTokens, const std::list<Automaton*>* automata);
     void ParseSDD();
 };
 
