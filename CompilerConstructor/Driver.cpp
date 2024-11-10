@@ -12,7 +12,7 @@ Driver::Driver(std::string lexFile, std::string syntaxFile) {
     std::cout << "Successfully Built Lexer\n";
 
     std::ifstream inSyntaxFile(syntaxFile);
-    syntaxer = new Syntaxer(Tokenize(&inSyntaxFile));
+    syntaxer = new Syntaxer(Tokenize(&inSyntaxFile), lexer->GetTokenStream());
 
     std::cout << "Successfully Built Syntaxer\n";
 }

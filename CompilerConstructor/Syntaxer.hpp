@@ -13,7 +13,7 @@ class ASTNode {
 
 class Syntaxer {
     public:
-    Syntaxer(std::list<std::string> sddTokens, const std::list<Automaton*>* automata);
+    Syntaxer(std::list<std::string> sddTokens, const std::list<Token> parsedTokens);
     void ParseSDD();
 };
 
