@@ -7,11 +7,13 @@
 
 class Lexer {
     public:
-    Lexer(std::list<std::string> tokens);
+    Lexer(std::list<std::string>* tokens);
     void Lex(std::string raw);
-    std::list<Token> GetTokenStream();
+    std::list<Token*>* GetTokenStream();
+    std::list<std::string>* GetTokens();
     void PrintNFATokens(std::list<std::string> tokens);
     void PrintTokenstream();
+    void PrintTokens();
 
     private:
     bool AllDead();
@@ -19,8 +21,8 @@ class Lexer {
     void ResetAutomata();
     Automaton* FindFirstInGoal();
     void PrintCurrentAutomataStates();
-    std::list<Automaton*> automata;
-    std::list<Token> tokenStream;
+    std::list<Automaton*>* automata;
+    std::list<Token*>* tokenStream;
     int line;
 };
 

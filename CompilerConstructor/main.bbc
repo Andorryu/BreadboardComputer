@@ -1,12 +1,12 @@
 
-usgn32 fibbonacci(usgn32 n) {
+u32 fibbonacci(u32 n) {
     if (n == 0) { return 0; }
     if (n == 1) { return 1; }
     return fibbonacci(n-1) + fibbonacci(n-2);
 }
 
 void main() {
-    usgn32 i = 0;
+    u32 i = 0;
     while (i < 10) {
         print(fibbonacci(i));
         i = i + 1;

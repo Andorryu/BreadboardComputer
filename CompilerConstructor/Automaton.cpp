@@ -25,9 +25,10 @@ std::list<Edge*>* State::getImmEdgesByChar(char transChar) {
     return result;
 }
 State* State::findStateByID(std::string ID, std::list<std::string>* visitedIDs) {
+
     // check if state has been visited already
     for (auto id = visitedIDs->begin(); id != visitedIDs->end(); id++) {
-        if (ID == *id) {
+        if (this->ID == *id) {
             return nullptr;
         }
     }
@@ -78,9 +79,9 @@ char Edge::GetChar() {
 }
 
 // Automaton
-Automaton::Automaton(Token* token, std::string startID) {
+Automaton::Automaton(std::string ID, std::string startID) {
     start = new State(startID);
-    this->token = token;
+    this->ID = ID;
     currents = new std::list<State*>();
     currents->push_back(start);
     prevs = new std::list<State*>();
@@ -122,10 +123,9 @@ void Automaton::Update(char input) {
 // if state with ID toStateID does not exist, create a new state with ID toStateID.
 void Automaton::AddStateTransition(
     std::string fromStateID, std::string toStateID, char transChar, bool negate=false, bool isGoal=false) {
-
     State* fromState = start->findStateByID(fromStateID, new std::list<std::string>());
     if (fromState == nullptr) {
-        std::cerr << "ERROR " << "("; token->Print(); std::cerr << ")" << ": State with ID " << fromStateID << " does not exist.\n";
+        std::cerr << "ERROR " << "(" << ID << ")" << ": State with ID " << fromStateID << " does not exist.\n";
         return;
     }
 
@@ -152,8 +152,8 @@ bool Automaton::IsOnGoal() {
 bool Automaton::IsDead() {
     return currents->empty();
 }
-Token* Automaton::GetToken() {
-    return token;
+std::string Automaton::GetID() {
+    return ID;
 }
 void Automaton::PrintCurrent() {
     for (auto state = currents->begin(); state != currents->end(); state++) {

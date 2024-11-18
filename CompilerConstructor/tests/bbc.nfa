@@ -2,10 +2,10 @@ nl INT8 ST i A A n B B t C C 8 D+
 nl INT16 ST i A A n B B t C C 1 D D 6 E+
 nl INT32 ST i A A n B B t C C 3 D D 2 E+
 nl INT64 ST i A A n B B t C C 6 D D 4 E+
-nl U8 ST u A A 8 B+
-nl U16 ST u A A 1 B B 6 C+
-nl U32 ST u A A 3 B B 2 C+
-nl U64 ST u A A 6 B B 4 C+
+nl USGN8 ST u A A s B B g C C n D D 8 E+
+nl USGN16 ST u A A s B B g C C n D D 1 E E 6 F+
+nl USGN32 ST u A A s B B g C C n D D 3 E E 2 F+
+nl USGN64 ST u A A s B B g C C n D D 6 E E 4 F+
 nl STR ST s A A t B B r C+
 nl CHAR ST c A A h B B a C C r D+
 nl BOOL ST b A A o B B o C C l D+

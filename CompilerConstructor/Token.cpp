@@ -2,20 +2,21 @@
 #include "Token.hpp"
 #include <iostream>
 
-Token::Token(std::string ID) {
+Token::Token(std::string ID, std::string value) {
     this->ID = ID;
-}
-void Token::SetValue(std::string value) {
     this->value = value;
 }
-void Token::PrintID() {
-    std::cout << ID;
-}
+
 void Token::Print() {
-    std::cout << ID << ": " << value;
+    std::cout << ID << " : " << value;
 }
 
 std::string Token::GetID()
+{
+    return this->ID;
+}
+
+std::string Token::GetValue()
 {
     return this->ID;
 }

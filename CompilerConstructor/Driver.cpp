@@ -12,7 +12,7 @@ Driver::Driver(std::string lexFile, std::string syntaxFile) {
     std::cout << "Successfully Built Lexer\n";
 
     std::ifstream inSyntaxFile(syntaxFile);
-    syntaxer = new Syntaxer(Tokenize(&inSyntaxFile), lexer->GetTokenStream());
+    syntaxer = new Syntaxer(Tokenize(&inSyntaxFile), lexer->GetTokens());
 
     std::cout << "Successfully Built Syntaxer\n";
 }
@@ -26,7 +26,7 @@ void Driver::Run(char* BBCFile) {
 
     // lexing
     lexer->Lex(rawProgramText);
-    std::cout << "Successfully Lexed\nToken Stream:\n";
+    std::cout << "Successfully Lexed\n\nToken Stream:\n";
     lexer->PrintTokenstream();
 
     // syntax
@@ -36,13 +36,13 @@ void Driver::Run(char* BBCFile) {
     // type checking
 
 }
-std::list<std::string> Driver::Tokenize(std::ifstream* specFile) {
+std::list<std::string>* Driver::Tokenize(std::ifstream* specFile) {
     // break into tokens
-    std::list<std::string> tokens;
+    std::list<std::string>* tokens = new std::list<std::string>();
     std::string token;
     while (specFile->good()) {
         (*specFile) >> token;
-        tokens.push_back(token);
+        tokens->push_back(token);
     }
     return tokens;
 }

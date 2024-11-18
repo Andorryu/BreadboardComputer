@@ -3,7 +3,7 @@
 #define AUTOMATON_HPP
 
 #include <list>
-#include "Token.hpp"
+#include <string>
 
 class Edge;
 
@@ -40,7 +40,7 @@ class Edge {
 
 class Automaton {
     public:
-    Automaton(Token* token, std::string startID);
+    Automaton(std::string ID, std::string startID);
     void Reset();
     void Update(char input);
     void AddStateTransition(
@@ -48,11 +48,11 @@ class Automaton {
     void Revert();
     bool IsOnGoal();
     bool IsDead();
-    Token* GetToken();
+    std::string GetID();
     void PrintCurrent();
 
     private:
-    Token* token;
+    std::string ID;
     State* start;
     std::list<State*>* currents;
     std::list<State*>* prevs;

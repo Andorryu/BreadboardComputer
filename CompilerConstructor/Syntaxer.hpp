@@ -5,6 +5,7 @@
 #include <list>
 #include <string>
 #include "Automaton.hpp"
+#include "Token.hpp"
 
 class ASTNode {
     public:
@@ -13,7 +14,7 @@ class ASTNode {
 
 class Syntaxer {
     public:
-    Syntaxer(std::list<std::string> sddTokens, const std::list<Token> parsedTokens);
+    Syntaxer(std::list<std::string>* sddTokens, std::list<std::string>* lexerTokens);
     void ParseSDD();
 };
 

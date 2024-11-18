@@ -13,7 +13,7 @@ class Driver {
     void Run(char* bbcFile);
 
     private:
-    std::list<std::string> Tokenize(std::ifstream* specFile);
+    std::list<std::string>* Tokenize(std::ifstream* specFile);
     std::string rawProgramText;
     Lexer* lexer;
     Syntaxer* syntaxer;

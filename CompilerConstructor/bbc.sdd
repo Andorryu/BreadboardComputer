@@ -1,127 +1,120 @@
-nl Prog            GlobalList
+nl Prog                 GlobalList
 
-nl GlobalList      GlobalList Global
-nl GlobalList      Global
-nl GlobalList      epsilon
+nl GlobalList           GlobalList Global
+nl GlobalList           epsilon
 
-nl Global          VarStmt
-nl Global          VarAssignStmt
-nl Global          FuncStmt
-nl Global          FuncDefn
-nl Global          ClassStmt
-nl Global          ClassDefn
+nl Global               VarStmt
+nl Global               VarAssignStmt
+nl Global               FuncStmt
+nl Global               FuncDefn
+nl Global               ClassStmt
+nl Global               ClassDefn
 
-nl VarStmt         VarDecl SEMICOLON
-nl VarAssignStmt   VarAssignDecl SEMICOLON
-nl FuncStmt        FuncDecl SEMICOLON
-nl FuncDefn        FuncDecl BlockStmt
-nl ClassStmt       ClassDecl SEMICOLON
-nl ClassDefn       ClassDecl ClassBody
+nl VarStmt              VarDecl SEMICOLON
+nl VarAssignStmt        VarAssignDecl SEMICOLON
+nl FuncStmt             FuncDecl SEMICOLON
+nl FuncDefn             FuncDecl BlockStmt
+nl ClassStmt            ClassDecl SEMICOLON
+nl ClassDefn            ClassDecl ClassBody
 
-nl VarDecl         Type ID
-nl VarAssignDecl   VarDecl ASSIGN Expr
-nl FuncDecl        Type ID LPARENS FormalList RPARENS
-nl BlockStmt       LCURLY StmtList RCURLY
-nl ClassDecl       CLASS ID
-nl ClassBody       LCURLY ClassMemberList RCURLY
+nl VarDecl              Type ID
+nl VarAssignDecl        VarDecl ASSIGN Expr
+nl FuncDecl             Type ID LPARENS FormalList RPARENS
+nl BlockStmt            LCURLY StmtList RCURLY
+nl ClassDecl            CLASS ID
+nl ClassBody            LCURLY ClassMemberList RCURLY
 
-nl Type            DataType
-nl Type            DataType STAR
+nl Type                 DataType
+nl Type                 DataType STAR
 
-nl Expr            Expr BinOpr Expr
-nl Expr            UnOpr Expr
-nl Expr            LPARENS Expr RPARENS
-nl Expr            Loc
-nl Expr            Lit
+nl Expr                 LPARENS Expr RPARENS
+nl Expr                 BinExpr
+nl Expr                 UnExpr
+nl Expr                 Loc
+nl Expr                 Lit
 
-nl FormalList      FormalList COMMA VarDecl
-nl FormalList      VarDecl
-nl FormalList      epsilon
+nl FormalList           FormalList COMMA VarDecl
+nl FormalList           VarDecl
+nl FormalList           epsilon
 
-nl StmtList        StmtList Stmt
-nl StmtList        Stmt
-nl StmtList        epsilon
+nl StmtList             StmtList Stmt
+nl StmtList             epsilon
 
-nl ClassMemberList       ClassMemberList ClassMember
-nl ClassMemberList       ClassMember
-nl ClassMemberList       epsilon
+nl ClassMemberList      ClassMemberList ClassMember
+nl ClassMemberList      ClassMember
+nl ClassMemberList      epsilon
 
-nl DataType        PrimType
-nl DataType        ClassType
+nl DataType             PrimType
+nl DataType             ClassType
 
-nl BinOpr          CROSS
-nl BinOpr          DASH
-nl BinOpr          STAR
-nl BinOpr          SLASH
-nl BinOpr          LOGAND
-nl BinOpr          LOGOR
-nl BinOpr          LESS
-nl BinOpr          LESSEQ
-nl BinOpr          GREATER
-nl BinOpr          GREATEREQ
+nl BinExpr               Expr CROSS Expr
+nl BinExpr               Expr DASH Expr
+nl BinExpr               Expr STAR Expr
+nl BinExpr               Expr SLASH Expr
+nl BinExpr               Expr LOGAND Expr
+nl BinExpr               Expr LOGOR Expr
+nl BinExpr               Expr LESS Expr
+nl BinExpr               Expr LESSEQ Expr
+nl BinExpr               Expr GREATER Expr
+nl BinExpr               Expr GREATEREQ Expr
 
-nl UnOpr           LOGNOT
-nl UnOpr           DASH
-nl UnOpr           LOGNOT
-nl UnOpr           BITNOT
+nl UnExpr                DASH Expr
+nl UnExpr                LOGNOT Expr
+nl UnExpr                BITNOT Expr
 
-nl Loc             STAR Loc
-nl Loc             ID
+nl Loc                  STAR Loc
+nl Loc                  ID
 
-nl Lit             DECINTLIT
-nl Lit             HEXINTLIT
-nl Lit             BININTLIT
-nl Lit             STRLIT
-nl Lit             CHARLIT
-nl Lit             BOOLLIT
+nl Lit                  DECINTLIT
+nl Lit                  HEXINTLIT
+nl Lit                  BININTLIT
+nl Lit                  STRLIT
+nl Lit                  CHARLIT
+nl Lit                  BOOLLIT
 
-nl Stmt            VarStmt
-nl Stmt            VarAssignStmt
-nl Stmt            AssignStmt
-nl Stmt            IfStmt
-nl Stmt            WhileStmt
-nl Stmt            ForStmt
-nl Stmt            SwitchStmt
+nl Stmt                 VarStmt
+nl Stmt                 VarAssignStmt
+nl Stmt                 AssignStmt
+nl Stmt                 IfStmt
+nl Stmt                 WhileStmt
+nl Stmt                 ForStmt
+nl Stmt                 SwitchStmt
+nl Stmt                 ReturnStmt
 
-nl ClassMember     VarStmt
-nl ClassMember     FuncStmt
+nl ClassMember          VarStmt
+nl ClassMember          FuncStmt
 
-nl PrimType        INT8
-nl PrimType        INT16
-nl PrimType        INT32
-nl PrimType        INT64
-nl PrimType        USGN8
-nl PrimType        USGN16
-nl PrimType        USGN32
-nl PrimType        USGN64
-nl PrimType        STR
-nl PrimType        CHAR
-nl PrimType        BOOL
-nl PrimType        VOID
+nl PrimType             INT8
+nl PrimType             INT16
+nl PrimType             INT32
+nl PrimType             INT64
+nl PrimType             U8
+nl PrimType             U16
+nl PrimType             U32
+nl PrimType             U64
+nl PrimType             STR
+nl PrimType             CHAR
+nl PrimType             BOOL
+nl PrimType             VOID
 
-nl ClassType       ID
+nl ClassType            ID
 
-nl AssignStmt      AssignDecl SEMICOLON
+nl AssignStmt           AssignDecl SEMICOLON
+nl IfStmt               IF LPARENS Expr RPARENS BlockStmt
+nl WhileStmt            WHILE LPARENS Expr RPARENS BlockStmt
+nl ForStmt              FOR LPARENS ForInit SEMICOLON Expr SEMICOLON ForIter RPARENS BlockStmt
+nl SwitchStmt           SWITCH LPARENS Expr RPARENS SwitchBody
+nl ReturnStmt           RETURN Expr SEMICOLON
 
-nl IfStmt          IF LPARENS Expr RPARENS BlockStmt
+nl AssignDecl           Loc ASSIGN Expr
 
-nl WhileStmt       WHILE LPARENS Expr RPARENS BlockStmt
+nl ForInit              VarAssignDecl
+nl ForInit              AssignDecl
+nl ForIter              AssignDecl
 
-nl ForStmt         FOR LPARENS ForInit SEMICOLON Expr SEMICOLON ForIter RPARENS BlockStmt
+nl SwitchBody           LCURLY CaseList RCURLY
 
-nl SwitchStmt      SWITCH LPARENS Expr RPARENS SwitchBody
-
-nl AssignDecl      Loc ASSIGN Expr
-
-nl ForInit         VarAssignDecl
-nl ForInit         AssignDecl
-
-nl ForIter         AssignDecl
-
-nl SwitchBody      LCURLY CaseList RCURLY
-
-nl CaseList        CaseList CaseStmt
-nl CaseList        CaseStmt
-nl CaseList        epsilon
-
-nl CaseStmt        CASE Expr BlockStmt
+nl CaseList             CaseList CaseStmt
+nl CaseList             CaseStmt
+nl CaseList             epsilon
+nl CaseStmt             CASE Expr BlockStmt
