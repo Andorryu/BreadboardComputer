@@ -2,7 +2,7 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
 
-#include "Production.hpp"
+#include "SDD.hpp"
 #include <string>
 
 class Token {

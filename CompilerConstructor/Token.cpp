@@ -18,5 +18,5 @@ std::string Token::GetID()
 
 std::string Token::GetValue()
 {
-    return this->ID;
+    return this->value;
 }

@@ -10,7 +10,6 @@ class Lexer {
     Lexer(std::list<std::string>* tokens);
     void Lex(std::string raw);
     std::list<Token*>* GetTokenStream();
-    std::list<std::string>* GetTokens();
     void PrintNFATokens(std::list<std::string> tokens);
     void PrintTokenstream();
     void PrintTokens();

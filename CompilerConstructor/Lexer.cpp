@@ -113,9 +113,6 @@ void Lexer::Lex(std::string raw) {
 std::list<Token*>* Lexer::GetTokenStream() {
     return tokenStream;
 }
-std::list<std::string>* Lexer::GetTokens() {
-    return new std::list<std::string>();
-}
 void Lexer::PrintNFATokens(std::list<std::string> tokens) {
     for (auto tok = tokens.begin(); tok != tokens.end(); tok++) {
         std::cout << *tok << " ";

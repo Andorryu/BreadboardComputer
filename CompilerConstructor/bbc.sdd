@@ -57,6 +57,7 @@ nl BinExpr               Expr LESS Expr
 nl BinExpr               Expr LESSEQ Expr
 nl BinExpr               Expr GREATER Expr
 nl BinExpr               Expr GREATEREQ Expr
+nl BinExpr               Expr EQUALS Expr
 
 nl UnExpr                DASH Expr
 nl UnExpr                LOGNOT Expr

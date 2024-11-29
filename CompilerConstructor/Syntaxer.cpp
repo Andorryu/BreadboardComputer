@@ -1,15 +1,19 @@
 
 #include "Syntaxer.hpp"
-#include "Production.hpp"
+#include "SDD.hpp"
 
 // Syntaxer
 // public
-Syntaxer::Syntaxer(std::list<std::string>* sddTokens, std::list<std::string>* lexerTokens) {
+Syntaxer::Syntaxer(std::list<std::string>* sddTokens, std::list<Token>* lexerTokens) {
     // create list of known ProdNodes
-    std::list<ProdNode> knownProdNodes = std::list<ProdNode>();
-    // fill with tokens
-    for (auto ltok = lexerTokens->begin(); ltok != lexerTokens->end(); ltok++) {
-        knownProdNodes.push_back(ProdNode(*ltok));
+    sdd = new SDD();
+    // start filling productions
+    for (auto sddtok = sddTokens->begin(); sddtok != sddTokens->end(); sddtok++) {
+        // new production
+        if (*sddtok == "nl") {
+            sddtok++;
+            
+        }
     }
 }
 

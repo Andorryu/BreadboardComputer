@@ -14,8 +14,11 @@ class ASTNode {
 
 class Syntaxer {
     public:
-    Syntaxer(std::list<std::string>* sddTokens, std::list<std::string>* lexerTokens);
+    Syntaxer(std::list<std::string>* sddTokens, std::list<Token>* lexerTokens);
     void ParseSDD();
+    
+    private:
+    SDD* sdd;
 };
 
 #endif
